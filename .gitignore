@@ -1,22 +1,41 @@
-# Ignore git repos (they are submodules)
-agency-agents/
-gsd-2/
-
-# Local config
+# Ignore these
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+*.log
 .env
 .env.local
-
-# Node
+db.sqlite3
+media/
+staticfiles/
 node_modules/
-package-lock.json
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
 
 # OS
 .DS_Store
 Thumbs.db
 
-# Logs
-*.log
+# Repos
+agency-agents/
+gsd-2/
+horilla-source/
 
-# Temporary
-*.tmp
+# Temp
 temp/
+*.tmp
