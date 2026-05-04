@@ -1,0 +1,44 @@
+# Office HR System - Render Blueprint
+# Import this in Render to deploy with one click
+
+services:
+  - name: office-hr
+    env: python
+    region: singapore
+    buildCommand: |
+      pip install -r requirements.txt
+      python manage.py migrate --noinput
+      python manage.py collectstatic --noinput
+    startCommand: gunicorn --bind 0.0.0.0:8000 horilla.wsgi:application
+    envVars:
+      - key: DEBUG
+        value: "False"
+      - key: SECRET_KEY
+        value: "CHANGE_ME_generate_at_djecrety.ir"
+      - key: ALLOWED_HOSTS
+        value: "office-hr.onrender.com"
+      - key: TIME_ZONE
+        value: "Asia/Kolkata"
+      - key: DB_ENGINE
+        value: "django.db.backends.postgresql"
+      - key: DB_NAME
+        value: "postgres"
+      - key: DB_USER
+        value: "postgres"
+      - key: DB_PASSWORD
+        sync: false
+      - key: DB_HOST
+        sync: false
+      - key: DB_PORT
+        value: "5432"
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false
+
+databases:
+  - name: horilla-db
+    databaseName: horilla
+    plan: free

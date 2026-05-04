@@ -1,0 +1,22 @@
+# Ignore git repos (they are submodules)
+agency-agents/
+gsd-2/
+
+# Local config
+.env
+.env.local
+
+# Node
+node_modules/
+package-lock.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Temporary
+*.tmp
+temp/

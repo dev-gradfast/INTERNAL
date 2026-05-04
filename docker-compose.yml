@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  horilla:
+    image: horilla/horilla:1.4
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+    environment:
+      DEBUG: "False"
+      SECRET_KEY: "${SECRET_KEY}"
+      ALLOWED_HOSTS: "${ALLOWED_HOSTS}"
+      TIME_ZONE: "Asia/Kolkata"
+      
+      # Database - External PostgreSQL (Supabase)
+      DB_ENGINE: "django.db.backends.postgresql"
+      DB_NAME: "${DB_NAME}"
+      DB_USER: "${DB_USER}"
+      DB_PASSWORD: "${DB_PASSWORD}"
+      DB_HOST: "${DB_HOST}"
+      DB_PORT: "${DB_PORT}"
+      
+      # Cloudinary (optional)
+      CLOUDINARY_CLOUD_NAME: "${CLOUDINARY_CLOUD_NAME}"
+      CLOUDINARY_API_KEY: "${CLOUDINARY_API_KEY}"
+      CLOUDINARY_API_SECRET: "${CLOUDINARY_API_SECRET}"
+      
+    command: >
+      sh -c "
+      echo 'Waiting for database to be ready...' &&
+      until pg_isready -h ${DB_HOST} -p ${DB_PORT} -U ${DB_USER}; do sleep 2; done &&
+      python3 manage.py migrate &&
+      python3 manage.py collectstatic --noinput &&
+      gunicorn --bind 0.0.0.0:8000 horilla.wsgi:application
+      "
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+
+# Volume for media files
+volumes:
+  horilla-media:
