@@ -1,0 +1,27 @@
+# Internal Office System - Vercel Deployment
+
+## Install VerSel Adapter
+vercel
+django-vercel
+
+## Core Dependencies
+Django==4.2.24
+gunicorn
+psycopg2-binary
+python-dotenv
+dj-database-url
+whitenoise
+
+# Django packages
+django-cors-headers
+django-filter
+django-htmx
+django-auditlog
+
+# File uploads
+django-cloudinary-storage
+Pillow
+
+# Email (optional)
+python-mandrill
+anymail
