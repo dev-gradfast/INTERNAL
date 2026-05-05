@@ -1,5 +1,6 @@
 {
   "version": 2,
-  "installCommand": "yarn install",
-  "buildCommand": "yarn build"
+  "buildCommand": "npm run build",
+  "installCommand": "npm install",
+  "devCommand": "npm run dev"
 }
