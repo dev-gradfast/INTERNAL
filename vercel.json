@@ -1,17 +1,24 @@
 {
   "builds": [
     {
-      "src": "horilla/wsgi.py",
+      "src": ".",
       "use": "@vercel/python",
       "config": {
-        "maxDuration": 60
+        "maxDuration": 60,
+        "installCommand": "pip install -r requirements.txt"
       }
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "horilla/wsgi.py"
+      "dest": "horilla/wsgi.py",
+      "methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"]
+    },
+    {
+      "src": "/static/(.*)",
+      "dest": "/static/$1"
     }
-  ]
+  ],
+  "buildCommand": "pip install -r requirements.txt && python horilla/manage.py collectstatic --noinput || true"
 }
